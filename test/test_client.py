@@ -5,22 +5,34 @@ from pomotodo import datetime_utils, utils
 from pomotodo.client import PomotodoClient
 
 
+def dump_pomos(pomos):
+    print("There are %d pomos." % len(pomos))
+    i = 0
+    for pomo in pomos:
+        i=i+1
+        print("No.%02d" % i)
+        print(pomo)
+
+
 class TestTrelloClient(TestCase):
-    def test_get_pomos(self):
+    def setUp(self):
         p = utils.load("pomotodo.properties")
         print("token: %s" % p.properties['token'])
-        client = PomotodoClient(
+        self.client = PomotodoClient(
             token=p.properties['token']
         )
+        pass
 
-        started_later_than = datetime_utils.utc_today()
-        print(started_later_than)
-        pomos = client.get_pomos(started_later_than, None)
-        pomos.append(client.get_pomos(started_later_than, None, True))
-        print("There are %d pomos." % len(pomos))
-        for pomo in pomos:
-            print(pomo)
+    def test_get_pomos_yesterday(self):
+        started_earlier_than = datetime_utils.utc_today()
+        started_later_than = started_earlier_than - timedelta(days=1)
+        pomos = self.client.get_pomos(started_later_than, started_earlier_than)
+        # dump_pomos(pomos)
+        pomos_manual = self.client.get_pomos(started_later_than, started_earlier_than, True)
+        # dump_pomos(pomos_manual)
 
-        # self.fail()
+        for e in pomos_manual:
+            pomos.append(e)
 
+        dump_pomos(pomos)
         pass
