@@ -1,11 +1,11 @@
 from setuptools import setup
 
-setup(name='mypackage',
+setup(name='py-pomotodo',
       version='0.1',
-      description='Testing installation of Package',
+      description='Python wrapper around the Pomotodo API',
       url='#',
-      author='auth',
-      author_email='author@email.com',
-      license='MIT',
-      packages=['mypackage'],
+      author='Thomas Liu',
+      author_email='liuxk99@gmail.com',
+      license='Apache License 2.0',
+      packages=['pomotodo'],
       zip_safe=False)
