@@ -28,6 +28,10 @@
 from pomotodo import datetime_utils
 
 
+def sort_key(pomo):
+    return pomo._started_at
+
+
 class Pomo:
     def __init__(self, uuid, created_at, updated_at, description, started_at, ended_at,
                  local_started_at, local_ended_at, length, abandoned=False, manual=False):
@@ -65,6 +69,24 @@ class Pomo:
                    local_started_at, local_ended_at,
                    description,
                    created_at, updated_at,
+                   length, abandoned, manual))
+
+    def to_text(self):
+        uuid = str(self._uuid)
+        description = self._description
+        local_started_at = self._local_started_at
+        local_ended_at = self._local_ended_at
+        length = str(self._length)
+        abandoned = str(self._abandoned)
+        manual = str(self._manual)
+
+        return (u'uuid: %s\n'
+                u' [%s - %s]\n'
+                u' "%s"\n'
+                u' length: %s, abandoned: %s, manual: %s'
+                % (uuid,
+                   local_started_at.strftime("%H:%M"), local_ended_at.strftime("%H:%M"),
+                   description,
                    length, abandoned, manual))
 
     @staticmethod

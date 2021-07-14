@@ -1,7 +1,7 @@
 from datetime import timedelta
 from unittest import TestCase
 
-from pomotodo import datetime_utils, utils
+from pomotodo import datetime_utils, utils, pomo
 from pomotodo.client import PomotodoClient
 
 
@@ -11,7 +11,8 @@ def dump_pomos(pomos):
     for pomo in pomos:
         i=i+1
         print("No.%02d" % i)
-        print(pomo)
+        print(pomo.to_text())
+        print("---")
 
 
 class TestTrelloClient(TestCase):
@@ -34,5 +35,7 @@ class TestTrelloClient(TestCase):
         for e in pomos_manual:
             pomos.append(e)
 
+        pomos.sort(key=pomo.sort_key)
+        print(datetime_utils.to_local(started_later_than).strftime("%Y/%m/%d"))
         dump_pomos(pomos)
         pass
