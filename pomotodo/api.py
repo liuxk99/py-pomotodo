@@ -33,3 +33,9 @@ def get_todos(token):
     headers = {'Authorization': 'token ' + token}
     result = requests.get(API_URL + "todos/", headers=headers)
     return result.json()
+
+
+def get_pomo(token, uuid):
+    headers = {'Authorization': 'token ' + token}
+    result = requests.get(API_URL + "pomos/%s" % uuid, headers=headers)
+    return result.json()

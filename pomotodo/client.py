@@ -29,9 +29,15 @@ class PomotodoClient(object):
         self.token = token
 
     def get_pomos(self, started_later_than_dt, started_earlier_than=None, manual=False):
-        pomo_items = api.get_pomos(self.token, started_later_than_dt, started_earlier_than, manual)
+        json_items = api.get_pomos(self.token, started_later_than_dt, started_earlier_than, manual)
         pomos = []
-        for e in pomo_items:
+        for e in json_items:
             pomos.append(Pomo.from_json(e))
 
         return pomos
+
+    def get_pomo(self, uuid):
+        pomo_json = api.get_pomo(self.token, uuid)
+        pomo = Pomo.from_json(pomo_json)
+        print(pomo.to_text())
+        pass

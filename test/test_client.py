@@ -9,7 +9,7 @@ def dump_pomos(pomos):
     print("There are %d pomos." % len(pomos))
     i = 0
     for pomo in pomos:
-        i=i+1
+        i = i + 1
         print("No.%02d" % i)
         print(pomo.to_text())
         print("---")
@@ -38,4 +38,9 @@ class TestTrelloClient(TestCase):
         pomos.sort(key=pomo.sort_key)
         print(datetime_utils.to_local(started_later_than).strftime("%Y/%m/%d"))
         dump_pomos(pomos)
+        pass
+
+    def test_get_pomo(self):
+        uuid = "fa8e9021-87b5-4751-8c53-5aa047563ecd"
+        self.client.get_pomo(uuid)
         pass
