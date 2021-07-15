@@ -8,11 +8,14 @@ from pomotodo.client import PomotodoClient
 def dump_pomos(pomos):
     print("There are %d pomos." % len(pomos))
     i = 0
-    for pomo in pomos:
+    seconds = 0
+    for item in pomos:
         i = i + 1
-        print("No.%02d" % i)
-        print(pomo.to_text())
-        print("---")
+        seconds += item._length
+        print("=> No.%02d" % i)
+        print(item.to_markdown())
+    # "总计 4 小时 47 分钟"
+    print("完成了 %d 个番茄, 总计 %d seconds" % (i, seconds))
 
 
 class TestTrelloClient(TestCase):

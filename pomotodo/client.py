@@ -31,8 +31,9 @@ class PomotodoClient(object):
     def get_pomos(self, started_later_than_dt, started_earlier_than=None, manual=False):
         json_items = api.get_pomos(self.token, started_later_than_dt, started_earlier_than, manual)
         pomos = []
-        for e in json_items:
-            pomos.append(Pomo.from_json(e))
+        if json_items:
+            for e in json_items:
+                pomos.append(Pomo.from_json(e))
 
         return pomos
 

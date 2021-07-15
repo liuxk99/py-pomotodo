@@ -89,6 +89,13 @@ class Pomo:
                    description,
                    length, abandoned, manual))
 
+    def to_markdown(self):
+        cur_date = self._local_started_at.strftime("%Y/%m/%d")
+        begin_time = self._local_started_at.strftime("%H:%M")
+        end_time = self._local_ended_at.strftime("%H:%M")
+
+        return u'%s [%s - %s]\n**\\%s**\n\n---' % (cur_date, begin_time, end_time, self._description)
+
     @staticmethod
     def from_json(e):
         uuid = e[u'uuid']

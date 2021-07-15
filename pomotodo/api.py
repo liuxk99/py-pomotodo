@@ -26,7 +26,11 @@ def get_pomos(token, started_later_than_dt, started_earlier_than=None, manual=Fa
 
     print(parameters)
     result = requests.get(API_URL + "pomos/", headers=headers, params=parameters)
-    return result.json()
+    if 200 <= result.status_code < 300:
+        return result.json()
+    else:
+        print("status code: %d" % result.status_code)
+    return None
 
 
 def get_todos(token):
