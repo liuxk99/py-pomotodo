@@ -62,3 +62,7 @@ class PomotodoClient(object):
     def unpin_todo(self, uuid):
         json = api.unpin_todo(self.token, uuid)
         return Todo.from_json(json)
+
+    def delete_todo(self, uuid):
+        status_code = api.delete_todo(self.token, uuid)
+        return 200 <= status_code < 300

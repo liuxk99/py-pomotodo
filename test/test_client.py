@@ -79,3 +79,17 @@ class TestTrelloClient(TestCase):
         todo = self.client.unpin_todo(uuid)
         print(todo)
         pass
+
+    def test_delete_todo(self):
+        """
+uuid: 4868ed6d-4f2a-410f-9d61-8b6c83699026
+ created_at: 2021-07-15T22:19:36.664000+00:00, updated_at: 2021-07-15T22:19:36.664000+00:00
+ description: #生命/健康 '锻炼'·散步 |2021/07/16
+        """
+        uuid = "4868ed6d-4f2a-410f-9d61-8b6c83699026"
+        todo = self.client.get_todo(uuid)
+        print(todo)
+
+        result = self.client.delete_todo(uuid)
+        print("result: %r" % result)
+        pass

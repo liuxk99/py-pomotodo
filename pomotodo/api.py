@@ -85,3 +85,15 @@ def unpin_todo(token, uuid):
     result = requests.patch(API_URL + "todos/%s" % uuid, headers=headers, params=parameters)
     print("statue code: %d" % result.status_code)
     return result.json()
+
+
+def delete_todo(token, uuid):
+    """
+    Refer:
+    https://pomotodo.github.io/api-doc/#api-Todo-ListTodos
+    """
+
+    headers = {'Authorization': 'token ' + token}
+    result = requests.delete(API_URL + "todos/%s" % uuid, headers=headers)
+    print("statue code: %d" % result.status_code)
+    return result.status_code
