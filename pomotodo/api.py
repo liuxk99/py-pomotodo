@@ -59,3 +59,29 @@ def get_todo(token, uuid):
 
 def post_todo(token, text):
     return None
+
+
+def pin_todo(token, uuid):
+    """
+    Refer:
+    https://pomotodo.github.io/api-doc/#api-Todo-ListTodos
+    """
+
+    headers = {'Authorization': 'token ' + token}
+    parameters = {"pin": "true", "estimated_pomo_count": "3"}
+    result = requests.patch(API_URL + "todos/%s" % uuid, headers=headers, params=parameters)
+    print("statue code: %d" % result.status_code)
+    return result.json()
+
+
+def unpin_todo(token, uuid):
+    """
+    Refer:
+    https://pomotodo.github.io/api-doc/#api-Todo-ListTodos
+    """
+
+    headers = {'Authorization': 'token ' + token}
+    parameters = {"pin": "false", "estimated_pomo_count": "4"}
+    result = requests.patch(API_URL + "todos/%s" % uuid, headers=headers, params=parameters)
+    print("statue code: %d" % result.status_code)
+    return result.json()

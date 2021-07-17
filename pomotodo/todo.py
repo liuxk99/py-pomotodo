@@ -89,13 +89,16 @@ class Todo:
                 u' notice: %s, pin: %r\n'
                 u' completed: %s, completed_at: %s\n'
                 u' repeat_type = %s, remind_time = %s\n'
+                u' estimated_pomo_count = %d, costed_pomo_count = %d\n'
                 u' sub_todos: %s\n'
                 % (str(self.uuid),
                    self.created_at.isoformat(), self.updated_at.isoformat(),
                    self.description,
                    self.notice, self.pin,
                    self.completed, self.completed_at,
-                   self.repeat_type, self.remind_time, self.sub_todos))
+                   self.repeat_type, self.remind_time,
+                   self.estimated_pomo_count, self.costed_pomo_count,
+                   self.sub_todos))
 
     @staticmethod
     def from_json(e):
@@ -118,8 +121,15 @@ class Todo:
         if remind_time_str:
             remind_time = datetime_utils.from_iso8601(remind_time_str)
 
-        estimated_pomo_count = e['estimated_pomo_count']
-        costed_pomo_count = e['costed_pomo_count']
+        estimated_pomo_count = 0
+        value = e['estimated_pomo_count']
+        if value:
+            estimated_pomo_count = value
+
+        costed_pomo_count = 0
+        value = e['costed_pomo_count']
+        if value:
+            costed_pomo_count = value
         sub_todos = e['sub_todos']
 
         return Todo(uuid,

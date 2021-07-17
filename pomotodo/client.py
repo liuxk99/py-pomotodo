@@ -54,3 +54,11 @@ class PomotodoClient(object):
     def get_todo(self, uuid):
         json = api.get_todo(self.token, uuid)
         return Todo.from_json(json)
+
+    def pin_todo(self, uuid):
+        json = api.pin_todo(self.token, uuid)
+        return Todo.from_json(json)
+
+    def unpin_todo(self, uuid):
+        json = api.unpin_todo(self.token, uuid)
+        return Todo.from_json(json)

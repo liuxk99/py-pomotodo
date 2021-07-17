@@ -70,3 +70,12 @@ class TestTrelloClient(TestCase):
         todo = self.client.get_todo(uuid)
         print(todo)
         pass
+
+    def test_pin_todo(self):
+        uuid = "60dbbca2-60a5-4984-9cd5-4a0935016634"
+        todo = self.client.pin_todo(uuid)
+        print(todo)
+
+        todo = self.client.unpin_todo(uuid)
+        print(todo)
+        pass
