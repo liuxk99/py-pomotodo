@@ -8,6 +8,17 @@ def from_iso8601(s):
 
 
 def to_iso8601(dt):
+    """
+    different between python 2.x and python 3.x?
+    suggest to local tz than datetime.isoformat()
+    like this:
+
+    now = datetime_utils.to_local(datetime.now())
+    print(now.isoformat())
+
+    :param dt:
+    :return:
+    """
     return dt.strftime("%Y-%M-%DT%H:%M:%S.mmmmmmZ")
 
 
