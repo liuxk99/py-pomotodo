@@ -60,7 +60,7 @@ class TestTrelloClient(TestCase):
 
     def test_get_todos(self):
         todos = self.client.get_todos()
-        todos.sort(key=todo.sort_key)
+        todos.sort(key=todo.sort_key, reverse=True)
         dump_todos(todos)
 
         pass
@@ -72,7 +72,12 @@ class TestTrelloClient(TestCase):
         pass
 
     def test_pin_todo(self):
-        uuid = "60dbbca2-60a5-4984-9cd5-4a0935016634"
+        """
+uuid: 6a580dc4-ff42-451a-9932-4da5af987b7b
+ created_at: 2021-07-17T04:19:14.503000+00:00, updated_at: 2021-07-17T04:19:14.503000+00:00
+ description: #时间管理 '日'·计划 |2021/07/17
+        """
+        uuid = "6a580dc4-ff42-451a-9932-4da5af987b7b"
         todo = self.client.pin_todo(uuid)
         print(todo)
 
