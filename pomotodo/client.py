@@ -3,6 +3,7 @@ from __future__ import with_statement, print_function, absolute_import
 
 from pomotodo.pomo import Pomo
 from pomotodo import api
+from pomotodo.todo import Todo
 
 try:
     # PyOpenSSL works around some issues in python ssl modules
@@ -42,3 +43,14 @@ class PomotodoClient(object):
         pomo = Pomo.from_json(pomo_json)
         print(pomo.to_text())
         pass
+
+    def get_todos(self):
+        todos = []
+        json_items = api.get_todos(self.token)
+        for item in json_items:
+            todos.append(Todo.from_json(item))
+        return todos
+
+    def get_todo(self, uuid):
+        json = api.get_todo(self.token, uuid)
+        return Todo.from_json(json)

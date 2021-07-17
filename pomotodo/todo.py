@@ -41,6 +41,10 @@ from typing import List
 from pomotodo import datetime_utils
 
 
+def sort_key(todo):
+    return todo.updated_at
+
+
 class Todo:
     uuid: UUID
     created_at: datetime

@@ -33,13 +33,29 @@ def get_pomos(token, started_later_than_dt, started_earlier_than=None, manual=Fa
     return None
 
 
-def get_todos(token):
-    headers = {'Authorization': 'token ' + token}
-    result = requests.get(API_URL + "todos/", headers=headers)
-    return result.json()
-
-
 def get_pomo(token, uuid):
     headers = {'Authorization': 'token ' + token}
     result = requests.get(API_URL + "pomos/%s" % uuid, headers=headers)
     return result.json()
+
+
+def get_todos(token):
+    headers = {'Authorization': 'token ' + token}
+    parameters = {'limit': "100"}
+    result = requests.get(API_URL + "todos/", headers=headers, params=parameters)
+    return result.json()
+
+
+def get_todo(token, uuid):
+    """
+    Refer:
+    https://pomotodo.github.io/api-doc/#api-Todo-ListTodos
+    """
+
+    headers = {'Authorization': 'token ' + token}
+    result = requests.get(API_URL + "todos/%s" % uuid, headers=headers)
+    return result.json()
+
+
+def post_todo(token, text):
+    return None

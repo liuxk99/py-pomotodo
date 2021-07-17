@@ -1,7 +1,7 @@
 from datetime import timedelta
 from unittest import TestCase
 
-from pomotodo import datetime_utils, utils, pomo
+from pomotodo import datetime_utils, utils, pomo, todo
 from pomotodo.client import PomotodoClient
 
 
@@ -16,6 +16,16 @@ def dump_pomos(pomos):
         print(item.to_markdown())
     # "总计 4 小时 47 分钟"
     print("完成了 %d 个番茄, 总计 %d seconds" % (i, seconds))
+
+
+def dump_todos(todos):
+    print("There are %d todos." % len(todos))
+    i = 0
+    for todo in todos:
+        i = i + 1
+        print("=> No.%02d" % i)
+        print(todo)
+    pass
 
 
 class TestTrelloClient(TestCase):
@@ -46,4 +56,17 @@ class TestTrelloClient(TestCase):
     def test_get_pomo(self):
         uuid = "fa8e9021-87b5-4751-8c53-5aa047563ecd"
         self.client.get_pomo(uuid)
+        pass
+
+    def test_get_todos(self):
+        todos = self.client.get_todos()
+        todos.sort(key=todo.sort_key)
+        dump_todos(todos)
+
+        pass
+
+    def test_get_todo(self):
+        uuid = "60dbbca2-60a5-4984-9cd5-4a0935016634"
+        todo = self.client.get_todo(uuid)
+        print(todo)
         pass
