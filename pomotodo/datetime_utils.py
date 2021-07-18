@@ -19,7 +19,7 @@ def to_iso8601(dt):
     :param dt:
     :return:
     """
-    return dt.strftime("%Y-%M-%DT%H:%M:%S.mmmmmmZ")
+    return dt.strftime("%Y-%m-%dT%H:%M:%S.%f%z")
 
 
 def convert_tz(dt, to_tz):

@@ -85,7 +85,7 @@ class Todo:
     def __str__(self):
         return (u'uuid: %s\n'
                 u' created_at: %s, updated_at: %s\n'
-                u' description: %s\n'
+                u' description: "%s"\n'
                 u' notice: %s, pin: %r\n'
                 u' completed: %s, completed_at: %s\n'
                 u' repeat_type = %s, remind_time = %s\n'
@@ -102,6 +102,9 @@ class Todo:
 
     @staticmethod
     def from_json(e):
+        if not e:
+            return None
+
         uuid = e['uuid']
         created_at = datetime_utils.from_iso8601(e['created_at'])
         updated_at = datetime_utils.from_iso8601(e['updated_at'])

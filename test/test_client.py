@@ -1,4 +1,5 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
+from time import sleep
 from unittest import TestCase
 
 from pomotodo import datetime_utils, utils, pomo, todo
@@ -97,4 +98,42 @@ uuid: 4868ed6d-4f2a-410f-9d61-8b6c83699026
 
         result = self.client.delete_todo(uuid)
         print("result: %r" % result)
+        pass
+
+    def test_post_todo(self):
+        now = datetime_utils.to_local(datetime.now())
+        todo = self.client.post_todo("test %s" % now.isoformat())
+        print(todo)
+        pass
+
+    def test_patch_todo(self):
+        uuid = "9f8e962e-5572-4f7a-86cc-bfa7cdc1f60a"
+        todo = self.client.get_todo(uuid)
+        print("todo: %s" % todo)
+
+        # description = todo.description + "..."
+        # self.client.patch_todo(uuid, description=description)
+        pass
+
+    def test_todo_samples(self):
+        now = datetime_utils.to_local(datetime.now())
+        my_todo = self.client.post_todo("test %s" % now.isoformat())
+        print(my_todo)
+
+        description = my_todo.description + "..."
+        patched_todo = self.client.patch_todo(my_todo.uuid, description=description)
+        print("patch: " + my_todo.uuid)
+        print(patched_todo)
+
+        pinned_todo = self.client.pin_todo(patched_todo.uuid)
+        print("pin: " + patched_todo.uuid)
+        print(pinned_todo)
+
+        pinned_todo = self.client.unpin_todo(patched_todo.uuid)
+        print("unpin: " + pinned_todo.uuid)
+        print(pinned_todo)
+
+        sleep(60)
+        result = self.client.delete_todo(pinned_todo.uuid)
+        print("%r = delete_todo(%s)" % (result, pinned_todo.uuid))
         pass

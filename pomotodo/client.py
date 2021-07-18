@@ -52,8 +52,11 @@ class PomotodoClient(object):
         return todos
 
     def get_todo(self, uuid):
+        todo = None
         json = api.get_todo(self.token, uuid)
-        return Todo.from_json(json)
+        if json:
+            todo = Todo.from_json(json)
+        return todo
 
     def pin_todo(self, uuid):
         json = api.pin_todo(self.token, uuid)
@@ -66,3 +69,28 @@ class PomotodoClient(object):
     def delete_todo(self, uuid):
         status_code = api.delete_todo(self.token, uuid)
         return 200 <= status_code < 300
+
+    def patch_todo(self, uuid,
+                   description,
+                   notice=None, pin=None,
+                   completed=None, completed_at=None,
+                   repeat_type=None, remind_time=None, estimated_pomo_count=-1, costed_pomo_count=-1):
+        json = api.patch_todo(self.token, uuid, description,
+                              notice, pin,
+                              completed, completed_at,
+                              repeat_type, remind_time,
+                              estimated_pomo_count, costed_pomo_count)
+        return Todo.from_json(json)
+        pass
+
+    def post_todo(self,
+                   description,
+                   notice=None, pin=None,
+                   completed=None, completed_at=None,
+                   repeat_type=None, remind_time=None, estimated_pomo_count=-1, costed_pomo_count=-1):
+        json = api.post_todo(self.token, description,
+                              notice, pin,
+                              completed, completed_at,
+                              repeat_type, remind_time,
+                              estimated_pomo_count, costed_pomo_count)
+        return Todo.from_json(json)
