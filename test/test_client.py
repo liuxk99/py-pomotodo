@@ -2,7 +2,7 @@ from datetime import timedelta, datetime
 from time import sleep
 from unittest import TestCase
 
-from pomotodo import datetime_utils, utils, pomo, todo
+from pomotodo import datetime_utils, utils, pomo, todo, app
 from pomotodo.client import PomotodoClient
 
 
@@ -136,4 +136,8 @@ uuid: 4868ed6d-4f2a-410f-9d61-8b6c83699026
         sleep(60)
         result = self.client.delete_todo(pinned_todo.uuid)
         print("%r = delete_todo(%s)" % (result, pinned_todo.uuid))
+        pass
+
+    def test_generate_today_todos(self):
+        app.generate_today_todos(self.client)
         pass
