@@ -1,4 +1,6 @@
 # coding=utf-8
+from datetime import timedelta
+
 import dateutil.parser
 
 
@@ -51,3 +53,11 @@ def local_today():
 
 def utc_today():
     return to_utc(local_today())
+
+
+def local_yesterday():
+    return local_today() - timedelta(days=1)
+
+
+def utc_yesterday():
+    return to_utc(local_yesterday())

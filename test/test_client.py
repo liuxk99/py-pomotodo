@@ -39,20 +39,28 @@ class TestTrelloClient(TestCase):
         pass
 
     def test_get_pomos_yesterday(self):
-        started_earlier_than = datetime_utils.utc_today()
-        started_later_than = started_earlier_than - timedelta(days=1)
+        day_dt = datetime_utils.utc_today()
+        self.get_pomos_date(day_dt)
+        pass
+
+    def test_get_pomos_date(self):
+        day_dt = datetime_utils.from_iso8601("2021-06-05T00:00:00+0800")
+        self.get_pomos_date(day_dt)
+        pass
+
+    def get_pomos_date(self, date):
+        started_later_than = date
+        started_earlier_than = date + timedelta(days=1)
+
         pomos = self.client.get_pomos(started_later_than, started_earlier_than)
         # dump_pomos(pomos)
         pomos_manual = self.client.get_pomos(started_later_than, started_earlier_than, True)
         # dump_pomos(pomos_manual)
-
         for e in pomos_manual:
             pomos.append(e)
-
         pomos.sort(key=pomo.sort_key)
         print(datetime_utils.to_local(started_later_than).strftime("%Y/%m/%d"))
         dump_pomos(pomos)
-        pass
 
     def test_get_pomo(self):
         uuid = "fa8e9021-87b5-4751-8c53-5aa047563ecd"
