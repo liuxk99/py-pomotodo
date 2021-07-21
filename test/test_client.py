@@ -22,10 +22,10 @@ def dump_pomos(pomos):
 def dump_todos(todos):
     print("There are %d todos." % len(todos))
     i = 0
-    for todo in todos:
+    for elem in todos:
         i = i + 1
         print("=> No.%02d" % i)
-        print(todo)
+        print(elem)
     pass
 
 
