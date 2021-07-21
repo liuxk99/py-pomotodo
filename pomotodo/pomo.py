@@ -69,7 +69,7 @@ class Pomo:
                    local_started_at, local_ended_at,
                    description,
                    created_at, updated_at,
-                   length, abandoned, manual))
+                   self.duration(), abandoned, manual))
 
     def to_text(self):
         uuid = str(self._uuid)
@@ -87,7 +87,7 @@ class Pomo:
                 % (uuid,
                    local_started_at.strftime("%H:%M"), local_ended_at.strftime("%H:%M"),
                    description,
-                   length, abandoned, manual))
+                   self.duration(), abandoned, manual))
 
     def to_markdown(self):
         cur_date = self._local_started_at.strftime("%Y/%m/%d")
@@ -114,3 +114,7 @@ class Pomo:
                     datetime_utils.from_iso8601(started_at), datetime_utils.from_iso8601(ended_at),
                     datetime_utils.from_iso8601(local_started_at), datetime_utils.from_iso8601(local_ended_at),
                     length, abandoned, manual)
+
+    def duration(self):
+        delta = self._ended_at - self._started_at
+        return delta.total_seconds()

@@ -1,8 +1,8 @@
-from datetime import timedelta, datetime
+from datetime import datetime
 from time import sleep
 from unittest import TestCase
 
-from pomotodo import datetime_utils, utils, pomo, todo, app
+from pomotodo import datetime_utils, utils, todo, app
 from pomotodo.client import PomotodoClient
 
 
@@ -24,10 +24,10 @@ def dump_pomos_simple(pomos):
     seconds = 0
     for item in pomos:
         i = i + 1
-        seconds += item._length
+        seconds += item.duration()
         print(item.to_markdown())
-    # "总计 4 小时 47 分钟"
-    print("完成了 %d 个番茄, 总计 %d seconds" % (i, seconds))
+    h, m, s = utils.hms(seconds)
+    print("完成了 %d 个番茄, 总计 %d 小时 %d 分钟 %d 秒" % (i, h, m, s))
 
 
 def dump_todos(todos):
@@ -49,29 +49,20 @@ class TestTrelloClient(TestCase):
         )
         pass
 
-    def test_get_pomos_yesterday(self):
+    def test_get_pomos_today(self):
         day_dt = datetime_utils.utc_today()
-        self.get_pomos_date(day_dt)
+        app.get_pomos_date(self.client, day_dt)
+        pass
+
+    def test_get_pomos_yesterday(self):
+        day_dt = datetime_utils.utc_yesterday()
+        app.get_pomos_date(self.client, day_dt)
         pass
 
     def test_get_pomos_date(self):
         day_dt = datetime_utils.from_iso8601("2021-07-10T00:00:00+0800")
-        self.get_pomos_date(datetime_utils.to_utc(day_dt))
+        app.get_pomos_date(self.client, datetime_utils.to_utc(day_dt))
         pass
-
-    def get_pomos_date(self, date):
-        started_later_than = date
-        started_earlier_than = date + timedelta(days=1)
-
-        pomos = self.client.get_pomos(started_later_than, started_earlier_than)
-        # dump_pomos(pomos)
-        pomos_manual = self.client.get_pomos(started_later_than, started_earlier_than, True)
-        # dump_pomos(pomos_manual)
-        for e in pomos_manual:
-            pomos.append(e)
-        pomos.sort(key=pomo.sort_key)
-        print(datetime_utils.to_local(started_later_than).strftime("%Y/%m/%d"))
-        dump_pomos_simple(pomos)
 
     def test_get_pomo(self):
         uuid = "fa8e9021-87b5-4751-8c53-5aa047563ecd"

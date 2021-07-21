@@ -20,3 +20,14 @@ def is_json(myjson):
     except ValueError as e:
         return False
     return True
+
+
+def hms(seconds):
+    """
+    总计 7 小时 27 分钟
+    """
+    ss = seconds % 60
+    minutes = (seconds - ss) / 60
+    mm = minutes % 60
+    hh = (minutes - mm) / 60
+    return hh, mm, ss
