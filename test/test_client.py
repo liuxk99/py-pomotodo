@@ -19,6 +19,17 @@ def dump_pomos(pomos):
     print("完成了 %d 个番茄, 总计 %d seconds" % (i, seconds))
 
 
+def dump_pomos_simple(pomos):
+    i = 0
+    seconds = 0
+    for item in pomos:
+        i = i + 1
+        seconds += item._length
+        print(item.to_markdown())
+    # "总计 4 小时 47 分钟"
+    print("完成了 %d 个番茄, 总计 %d seconds" % (i, seconds))
+
+
 def dump_todos(todos):
     print("There are %d todos." % len(todos))
     i = 0
@@ -44,8 +55,8 @@ class TestTrelloClient(TestCase):
         pass
 
     def test_get_pomos_date(self):
-        day_dt = datetime_utils.from_iso8601("2021-06-05T00:00:00+0800")
-        self.get_pomos_date(day_dt)
+        day_dt = datetime_utils.from_iso8601("2021-07-10T00:00:00+0800")
+        self.get_pomos_date(datetime_utils.to_utc(day_dt))
         pass
 
     def get_pomos_date(self, date):
@@ -60,7 +71,7 @@ class TestTrelloClient(TestCase):
             pomos.append(e)
         pomos.sort(key=pomo.sort_key)
         print(datetime_utils.to_local(started_later_than).strftime("%Y/%m/%d"))
-        dump_pomos(pomos)
+        dump_pomos_simple(pomos)
 
     def test_get_pomo(self):
         uuid = "fa8e9021-87b5-4751-8c53-5aa047563ecd"
