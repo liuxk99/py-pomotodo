@@ -1,9 +1,11 @@
+import os
 from datetime import datetime
 from time import sleep
 from unittest import TestCase
 
 from pomotodo import datetime_utils, utils, todo, app
 from pomotodo.client import PomotodoClient
+from pomotodo.utils import gen_todos_snap_filename
 
 
 def dump_pomos(pomos):
@@ -67,6 +69,10 @@ class TestTrelloClient(TestCase):
     def test_get_pomo(self):
         uuid = "fa8e9021-87b5-4751-8c53-5aa047563ecd"
         self.client.get_pomo(uuid)
+        pass
+
+    def test_snap_todos(self):
+        app.snap_todos_1(self.client)
         pass
 
     def test_get_todos(self):

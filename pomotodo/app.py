@@ -10,9 +10,11 @@
 # Licence:     <your licence>
 # coding=utf-8
 # -------------------------------------------------------------------------------
+import csv
+import os
 from datetime import timedelta
 
-from pomotodo import datetime_utils, pomo
+from pomotodo import datetime_utils, pomo, todo, utils
 from test.test_client import dump_pomos_simple
 
 
@@ -62,3 +64,34 @@ def get_pomos_date(client, date):
     print(datetime_utils.to_local(started_later_than).strftime("%Y/%m/%d"))
     print("---")
     dump_pomos_simple(pomos)
+
+
+def snap_todos(todos, csv_filename):
+    print('snap_todos("%s")' % csv_filename)
+
+    fields = ["uuid", "description"]
+    with open(csv_filename, 'w', newline='', encoding="utf-8") as csvfile:
+        # creating a csv writer object
+        writer = csv.writer(csvfile)
+
+        # writing the fields
+        writer.writerow(fields)
+
+        # writing the data rows
+        for item in todos:
+            row = [item.uuid, item.description]
+            writer.writerow(row)
+
+
+def snap_todos_1(client):
+    todos = client.get_todos()
+    todos.sort(key=todo.sort_key, reverse=True)
+    for item in todos:
+        print('%s, "%s"' % (item.uuid, item.description))
+
+    csv_filename = utils.gen_todos_snap_filename()
+    csv_path = "csv" + os.sep + csv_filename
+    print("csv path: %s" % csv_path)
+
+    snap_todos(todos, csv_filename)
+    pass

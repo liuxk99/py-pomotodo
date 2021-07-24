@@ -2,6 +2,8 @@
 # coding=utf-8
 from jproperties import Properties
 
+from pomotodo import datetime_utils
+
 
 def load(properties_file):
     p = Properties()
@@ -31,3 +33,9 @@ def hms(seconds):
     mm = minutes % 60
     hh = (minutes - mm) / 60
     return hh, mm, ss
+
+
+def gen_todos_snap_filename():
+    csv_filename_date = datetime_utils.local_today().strftime("%Y%m%d")
+    csv_filename = 'todos-%s.csv' % (csv_filename_date)
+    return csv_filename
