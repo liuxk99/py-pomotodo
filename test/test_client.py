@@ -1,11 +1,9 @@
-import os
 from datetime import datetime
 from time import sleep
 from unittest import TestCase
 
 from pomotodo import datetime_utils, utils, todo, app
 from pomotodo.client import PomotodoClient
-from pomotodo.utils import gen_todos_snap_filename
 
 
 def dump_pomos(pomos):
@@ -19,17 +17,6 @@ def dump_pomos(pomos):
         print(item.to_markdown())
     # "总计 4 小时 47 分钟"
     print("完成了 %d 个番茄, 总计 %d seconds" % (i, seconds))
-
-
-def dump_pomos_simple(pomos):
-    i = 0
-    seconds = 0
-    for item in pomos:
-        i = i + 1
-        seconds += item.duration()
-        print(item.to_markdown())
-    h, m, s = utils.hms(seconds)
-    print("完成了 %d 个番茄, 总计 %d 小时 %d 分钟 %d 秒" % (i, h, m, s))
 
 
 def dump_todos(todos):
