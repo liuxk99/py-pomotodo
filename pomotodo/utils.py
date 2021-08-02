@@ -48,5 +48,5 @@ def dump_pomos_simple(pomos):
         i = i + 1
         seconds += item.duration()
         print(item.to_markdown())
-    h, m, s = utils.hms(seconds)
+    h, m, s = hms(seconds)
     print("完成了 %d 个番茄, 总计 %d 小时 %d 分钟 %d 秒" % (i, h, m, s))

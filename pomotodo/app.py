@@ -50,9 +50,9 @@ def generate_today_todos(client):
     return None
 
 
-def get_pomos_date(client, date):
-    started_later_than = date
-    started_earlier_than = date + timedelta(days=1)
+def get_pomos_date(client, utc_date):
+    started_later_than = utc_date
+    started_earlier_than = utc_date + timedelta(days=1)
 
     pomos = client.get_pomos(started_later_than, started_earlier_than)
     # dump_pomos(pomos)
@@ -64,6 +64,8 @@ def get_pomos_date(client, date):
     print(datetime_utils.to_local(started_later_than).strftime("%Y/%m/%d"))
     print("---")
     dump_pomos_simple(pomos)
+
+    return pomos
 
 
 def snap_todos(todos, csv_filename):
