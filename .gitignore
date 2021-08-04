@@ -133,3 +133,5 @@ dmypy.json
 
 nohup.out
 *.properties
+
+test/*.md

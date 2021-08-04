@@ -50,3 +50,18 @@ def dump_pomos_simple(pomos):
         print(item.to_markdown())
     h, m, s = hms(seconds)
     print("完成了 %d 个番茄, 总计 %d 小时 %d 分钟 %d 秒" % (i, h, m, s))
+
+
+def export_trello(pomos):
+    trello_str = ""
+    i = 0
+    seconds = 0
+    for item in pomos:
+        i = i + 1
+        seconds += item.duration()
+        trello_str += '{"uuid":"%s"}\n' % item._uuid
+        trello_str += item.to_markdown() + "\n"
+    h, m, s = hms(seconds)
+    trello_str += "完成了 %d 个番茄, 总计 %d 小时 %d 分钟 %d 秒" % (i, h, m, s)
+
+    return trello_str

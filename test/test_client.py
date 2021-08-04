@@ -2,7 +2,7 @@ from datetime import datetime
 from time import sleep
 from unittest import TestCase
 
-from pomotodo import datetime_utils, utils, todo, app
+from pomotodo import datetime_utils, utils, todo, app, file_utils
 from pomotodo.client import PomotodoClient
 
 
@@ -49,8 +49,13 @@ class TestTrelloClient(TestCase):
         pass
 
     def test_get_pomos_date(self):
-        day_dt = datetime_utils.from_iso8601("2021-07-10T00:00:00+0800")
-        app.get_pomos_date(self.client, datetime_utils.to_utc(day_dt))
+        local_date = datetime_utils.from_iso8601("2021-07-10T00:00:00+0800")
+        pomos = app.get_pomos_date(self.client, datetime_utils.to_utc(local_date))
+
+        trello_str = utils.export_trello(pomos)
+
+        pomos_filename = local_date.strftime("pomos-%Y%m%d.md")
+        file_utils.write(pomos_filename, trello_str)
         pass
 
     def test_get_pomo(self):

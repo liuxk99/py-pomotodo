@@ -61,9 +61,6 @@ def get_pomos_date(client, utc_date):
     for e in pomos_manual:
         pomos.append(e)
     pomos.sort(key=pomo.sort_key)
-    print(datetime_utils.to_local(started_later_than).strftime("%Y/%m/%d"))
-    print("---")
-    dump_pomos_simple(pomos)
 
     return pomos
 
