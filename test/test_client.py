@@ -74,6 +74,13 @@ class TestTrelloClient(TestCase):
 
         pass
 
+    def test_get_todos_simple(self):
+        todos = self.client.get_todos()
+        for elem in todos:
+            print(elem.description)
+
+        pass
+
     def test_get_todo(self):
         uuid = "60dbbca2-60a5-4984-9cd5-4a0935016634"
         todo = self.client.get_todo(uuid)
