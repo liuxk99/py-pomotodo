@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from time import sleep
 from unittest import TestCase
 
@@ -155,4 +155,24 @@ uuid: 4868ed6d-4f2a-410f-9d61-8b6c83699026
 
     def test_generate_today_todos(self):
         app.generate_today_todos(self.client)
+        pass
+
+    def test_post_pomo(self):
+        # import datetime
+        # tz_string = datetime.datetime.now(datetime.timezone.utc).astimezone().tzname()
+        # print(tz_string)
+        # import time
+        # print(time.tzname)
+
+        utc_now=datetime.now(timezone.utc)
+
+        start_at=(utc_now-timedelta(minutes=5)).isoformat(timespec='milliseconds').replace("+00:00", "Z")
+        ended_at=utc_now.isoformat(timespec='milliseconds').replace("+00:00", "Z")
+        description="哈哈"
+
+        print(start_at)
+        print(ended_at)
+        pomo = self.client.post_pomo(start_at, ended_at, None, description)
+        print(pomo)
+
         pass

@@ -29,6 +29,12 @@ class PomotodoClient(object):
 
         self.token = token
 
+    def post_pomo(self,
+                  started_at, ended_at, timezone, description):
+        json = api.post_pomo(self.token, started_at, ended_at, timezone, description)
+        print(json)
+        return Pomo.from_json(json)
+
     def get_pomos(self, started_later_than_dt, started_earlier_than=None, manual=False):
         json_items = api.get_pomos(self.token, started_later_than_dt, started_earlier_than, manual)
         pomos = []

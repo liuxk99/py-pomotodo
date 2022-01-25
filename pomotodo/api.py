@@ -16,6 +16,27 @@ import requests
 API_URL = 'https://api.pomotodo.com/1/'
 
 
+def compose_pomo(description, started_at, ended_at, timezone, description1):
+    data_args = {'description': description, 'started_at': started_at, 'ended_at': ended_at}
+    if timezone is None:
+        data_args['timezone'] = "Asia/Shanghai"
+    return data_args
+
+
+def post_pomo(token, started_at, ended_at, timezone, description):
+    headers = {'Authorization': 'token ' + token}
+
+    data_args = compose_pomo(description, started_at, ended_at, timezone, description)
+    response = requests.post(API_URL + "pomos", headers=headers, data=data_args)
+    print("statue code: %d" % response.status_code)
+
+    if 200 <= response.status_code < 300:
+        json_obj = response.json()
+        return json_obj
+    else:
+        print(response.content)
+        return None
+
 def get_pomos(token, started_later_than_dt, started_earlier_than=None, manual=False):
     headers = {'Authorization': 'token ' + token}
     query_params = {'started_later_than': started_later_than_dt.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), 'limit': "100"}
@@ -114,7 +135,7 @@ def post_todo(token, description,
     headers['Accept'] = 'application/json'
 
     data_args = compose_todo(description, notice, pin, completed, completed_at, repeat_type, remind_time,
-                              estimated_pomo_count, costed_pomo_count)
+                             estimated_pomo_count, costed_pomo_count)
     response = requests.post(API_URL + "todos", headers=headers, data=data_args)
     print("statue code: %d" % response.status_code)
 
@@ -137,7 +158,7 @@ def patch_todo(token, uuid, description,
 
     headers = {'Authorization': 'token %s' % token}
     data_args = compose_todo(description, notice, pin, completed, completed_at, repeat_type, remind_time,
-                              estimated_pomo_count, costed_pomo_count)
+                             estimated_pomo_count, costed_pomo_count)
     result = requests.patch(API_URL + "todos/%s" % uuid, headers=headers, data=data_args)
     print("statue code: %d" % result.status_code)
     return result.json()
