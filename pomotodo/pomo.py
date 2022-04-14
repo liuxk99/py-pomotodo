@@ -81,7 +81,7 @@ class Pomo:
         manual = str(self._manual)
 
         return (u'uuid: %s\n'
-                u' [%s - %s]\n'
+                u' [%s - %s]'
                 u' "%s"\n'
                 u' length: %s, abandoned: %s, manual: %s'
                 % (uuid,

@@ -12,6 +12,7 @@
 # -------------------------------------------------------------------------------
 
 import requests
+import tzlocal
 
 API_URL = 'https://api.pomotodo.com/1/'
 
@@ -19,7 +20,7 @@ API_URL = 'https://api.pomotodo.com/1/'
 def compose_pomo(description, started_at, ended_at, timezone, description1):
     data_args = {'description': description, 'started_at': started_at, 'ended_at': ended_at}
     if timezone is None:
-        data_args['timezone'] = "Asia/Shanghai"
+        data_args['timezone'] = tzlocal.get_localzone()
     return data_args
 
 

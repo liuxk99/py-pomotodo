@@ -94,3 +94,49 @@ def snap_todos_1(client):
 
     snap_todos(todos, csv_filename)
     pass
+
+
+def export_pomos_client(client, local_date):
+    pomos = get_pomos_date(client, datetime_utils.to_utc(local_date))
+
+    print_pomos(pomos)
+
+    csv_filename = utils.gen_pomos_snap_filename()
+    csv_path = "csv" + os.sep + csv_filename
+    print("csv path: %s" % csv_path)
+
+    save_pomos(pomos, csv_filename)
+    pass
+
+
+def print_pomos(pomos):
+    pomos.sort(key=pomo.sort_key)
+    for item in pomos:
+        print('%s' % item.to_text())
+
+
+def save_pomos(pomos, csv_filename):
+    print('snap_pomos("%s")' % csv_filename)
+
+    fields = ["uuid",
+              "started_at", "ended_at",
+              "local_started_at", "local_ended_at",
+              "description",
+              "create_at", "update_at",
+              "length", "abandoned", "manual"]
+    with open(csv_filename, 'w', newline='', encoding="utf-8") as csvfile:
+        # creating a csv writer object
+        writer = csv.writer(csvfile)
+
+        # writing the fields
+        writer.writerow(fields)
+
+        # writing the data rows
+        for item in pomos:
+            row = [item._uuid,
+                   item._started_at, item._ended_at,
+                   item._local_started_at, item._local_ended_at,
+                   item._description,
+                   item._created_at, item._updated_at,
+                   item._length, item._abandoned, item._manual]
+            writer.writerow(row)

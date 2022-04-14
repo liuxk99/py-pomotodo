@@ -41,6 +41,12 @@ def gen_todos_snap_filename():
     return csv_filename
 
 
+def gen_pomos_snap_filename():
+    csv_filename_date = datetime_utils.local_today().strftime("%Y%m%d")
+    csv_filename = 'pomos-%s.csv' % (csv_filename_date)
+    return csv_filename
+
+
 def dump_pomos_simple(pomos):
     i = 0
     seconds = 0

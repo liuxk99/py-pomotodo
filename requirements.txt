@@ -2,3 +2,4 @@ jproperties~=2.1.0
 setuptools~=56.0.0
 python-dateutil
 requests
+tzlocal

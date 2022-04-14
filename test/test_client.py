@@ -58,6 +58,16 @@ class TestTrelloClient(TestCase):
         file_utils.write(pomos_filename, trello_str)
         pass
 
+    def test_get_pomos_date_csv(self):
+        local_date = datetime_utils.from_iso8601("2022-04-12T00:00:00+0800")
+        pomos = app.get_pomos_date(self.client, datetime_utils.to_utc(local_date))
+
+        trello_str = utils.export_trello(pomos)
+
+        pomos_filename = local_date.strftime("pomos-%Y%m%d.md")
+        file_utils.write(pomos_filename, trello_str)
+        pass
+
     def test_get_pomo(self):
         uuid = "fa8e9021-87b5-4751-8c53-5aa047563ecd"
         self.client.get_pomo(uuid)
@@ -65,6 +75,11 @@ class TestTrelloClient(TestCase):
 
     def test_snap_todos(self):
         app.snap_todos_1(self.client)
+        pass
+
+    def test_export_pomos_csv(self):
+        local_date = datetime_utils.from_iso8601("2022-04-11T00:00:00+0800")
+        app.export_pomos_client(self.client, local_date)
         pass
 
     def test_get_todos(self):
