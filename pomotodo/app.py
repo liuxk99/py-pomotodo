@@ -15,7 +15,6 @@ import os
 from datetime import timedelta
 
 from pomotodo import datetime_utils, pomo, todo, utils
-from pomotodo.utils import dump_pomos_simple
 
 
 def generate_today_todos(client):

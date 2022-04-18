@@ -34,9 +34,9 @@ https://pomotodo.github.io/api-doc/#api-Todo-GetTodo
   }
 ]
 """
-from uuid import UUID
 from datetime import datetime
 from typing import List
+from uuid import UUID
 
 from pomotodo import datetime_utils
 

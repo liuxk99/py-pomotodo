@@ -38,6 +38,7 @@ def post_pomo(token, started_at, ended_at, timezone, description):
         print(response.content)
         return None
 
+
 def get_pomos(token, started_later_than_dt, started_earlier_than=None, manual=False):
     headers = {'Authorization': 'token ' + token}
     query_params = {'started_later_than': started_later_than_dt.strftime("%Y-%m-%dT%H:%M:%S.%fZ"), 'limit': "100"}

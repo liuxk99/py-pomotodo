@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import with_statement, print_function, absolute_import
 
-from pomotodo.pomo import Pomo
 from pomotodo import api
+from pomotodo.pomo import Pomo
 from pomotodo.todo import Todo
 
 try:
@@ -90,13 +90,13 @@ class PomotodoClient(object):
         pass
 
     def post_todo(self,
-                   description,
-                   notice=None, pin=None,
-                   completed=None, completed_at=None,
-                   repeat_type=None, remind_time=None, estimated_pomo_count=-1, costed_pomo_count=-1):
+                  description,
+                  notice=None, pin=None,
+                  completed=None, completed_at=None,
+                  repeat_type=None, remind_time=None, estimated_pomo_count=-1, costed_pomo_count=-1):
         json = api.post_todo(self.token, description,
-                              notice, pin,
-                              completed, completed_at,
-                              repeat_type, remind_time,
-                              estimated_pomo_count, costed_pomo_count)
+                             notice, pin,
+                             completed, completed_at,
+                             repeat_type, remind_time,
+                             estimated_pomo_count, costed_pomo_count)
         return Todo.from_json(json)
