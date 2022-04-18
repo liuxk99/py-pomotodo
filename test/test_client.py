@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta, timezone
 from time import sleep
 from unittest import TestCase
@@ -78,8 +79,14 @@ class TestTrelloClient(TestCase):
         pass
 
     def test_export_pomos_csv(self):
-        local_date = datetime_utils.from_iso8601("2022-04-11T00:00:00+0800")
-        app.export_pomos_client(self.client, local_date)
+        # csv_filename = utils.gen_pomos_snap_filename()
+        date = "2022-04-17"
+        csv_filename = "pomos-%s.csv" % date
+        csv_path = "csv" + os.sep + csv_filename
+        print("csv path: %s" % csv_path)
+
+        local_date = datetime_utils.from_iso8601("%sT00:00:00+0800" % date)
+        app.export_pomos_client(self.client, local_date, csv_filename)
         pass
 
     def test_get_todos(self):
@@ -179,11 +186,11 @@ uuid: 4868ed6d-4f2a-410f-9d61-8b6c83699026
         # import time
         # print(time.tzname)
 
-        utc_now=datetime.now(timezone.utc)
+        utc_now = datetime.now(timezone.utc)
 
-        start_at=(utc_now-timedelta(minutes=5)).isoformat(timespec='milliseconds').replace("+00:00", "Z")
-        ended_at=utc_now.isoformat(timespec='milliseconds').replace("+00:00", "Z")
-        description="哈哈"
+        start_at = (utc_now - timedelta(minutes=5)).isoformat(timespec='milliseconds').replace("+00:00", "Z")
+        ended_at = utc_now.isoformat(timespec='milliseconds').replace("+00:00", "Z")
+        description = "哈哈"
 
         print(start_at)
         print(ended_at)

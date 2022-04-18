@@ -96,15 +96,9 @@ def snap_todos_1(client):
     pass
 
 
-def export_pomos_client(client, local_date):
+def export_pomos_client(client, local_date, csv_filename):
     pomos = get_pomos_date(client, datetime_utils.to_utc(local_date))
-
     print_pomos(pomos)
-
-    csv_filename = utils.gen_pomos_snap_filename()
-    csv_path = "csv" + os.sep + csv_filename
-    print("csv path: %s" % csv_path)
-
     save_pomos(pomos, csv_filename)
     pass
 
