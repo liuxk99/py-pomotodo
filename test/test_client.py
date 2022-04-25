@@ -80,7 +80,7 @@ class TestTrelloClient(TestCase):
 
     def test_export_pomos_csv(self):
         # csv_filename = utils.gen_pomos_snap_filename()
-        date = "2022-04-17"
+        date = "2022-04-21"
         csv_filename = "pomos-%s.csv" % date
         csv_path = "csv" + os.sep + csv_filename
         print("csv path: %s" % csv_path)
@@ -176,7 +176,13 @@ uuid: 4868ed6d-4f2a-410f-9d61-8b6c83699026
         pass
 
     def test_generate_today_todos(self):
-        app.generate_today_todos(self.client)
+        date = datetime_utils.local_today()
+        app.generate_today_todos(self.client, date)
+        pass
+
+    def test_generate_todos_by_date(self):
+        local_date = datetime_utils.from_iso8601("2022-04-22T00:00:00+0800")
+        app.generate_today_todos(self.client, local_date)
         pass
 
     def test_post_pomo(self):

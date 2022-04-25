@@ -17,7 +17,7 @@ from datetime import timedelta
 from pomotodo import datetime_utils, pomo, todo, utils
 
 
-def generate_today_todos(client):
+def generate_today_todos(client, date):
     plan_todo = "#时间管理 '日'·计划"
     weather_todo = "#生活/日常 '天气<应用:墨迹天气>'"
     attendance_todo = "#公司(乐视)/管理 '考勤'"
@@ -31,7 +31,6 @@ def generate_today_todos(client):
                  record_todo, summary_todo]
 
     today_todos = []
-    date = datetime_utils.local_today()
     for item in todo_list:
         todo_text = "%s %s" % (item, date.strftime("|%Y/%m/%d"))
         todo_item = client.post_todo(todo_text)
