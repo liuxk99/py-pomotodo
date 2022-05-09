@@ -80,8 +80,8 @@ class TestTrelloClient(TestCase):
 
     def test_export_pomos_csv(self):
         # csv_filename = utils.gen_pomos_snap_filename()
-        date = "2022-04-21"
-        csv_filename = "pomos-%s.csv" % date
+        date = "2022-05-07"
+        csv_filename = "pomos-%s.csv" % date.replace('-', '.')
         csv_path = "csv" + os.sep + csv_filename
         print("csv path: %s" % csv_path)
 
